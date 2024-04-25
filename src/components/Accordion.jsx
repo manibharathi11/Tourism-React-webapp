@@ -5,7 +5,7 @@ function Accordion() {
     <div>
       <div className="row justify-content-center">
         <div className="col-lg-4">
-          <div className="custom-block" data-aos="fade-up">
+          <div className="custom-block" /*data-aos="fade-up"*/>
             <h2 className="section-title">Accordion</h2>
             <div className="custom-accordion" id="accordion_1">
               <div className="accordion-item">

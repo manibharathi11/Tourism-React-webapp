@@ -13,7 +13,9 @@ import "../css/bootstrap.min.css";
 import "../css/style.css";
 import "../css/daterangepicker.css";
 import "../css/jquery.fancybox.min.css";
-import "../css/aos.css";
+
+import ElementContactForm from "../components/ElementContactForm";
+import ElementGallery from "../components/ElementGallery";
 function Elements() {
   return (
     <div>
@@ -21,6 +23,8 @@ function Elements() {
       <ElementsInfo />
       <PhotosSection />
       <Accordion />
+      <ElementGallery />
+      <ElementContactForm />
       <TeamSection />
       <CtaSection />
       <Footer />
