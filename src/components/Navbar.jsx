@@ -1,8 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../css/style.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { Link } from "react-router-dom";
+import firebase from "firebase/compat/app";
+import { useState } from "react";
 function Navbar() {
+  //isloggedin
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    // Check if user is already logged in
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    });
+    return unsubscribe;
+  }, []);
+
+  //logout
+  const handleLogout = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        setIsLoggedIn(false);
+        // Redirect to home page or do any necessary clean up
+        window.location.href = "/";
+      })
+      .catch((error) => {
+        console.error("Sign out error:", error);
+      });
+  };
   return (
     <>
       <div className="site-mobile-menu site-navbar-target">
@@ -56,12 +86,31 @@ function Navbar() {
               <li>
                 <Link to={"/service"}>Services</Link>
               </li>
-              <li className="active">
+              <li>
                 <Link to={"/about"}>About</Link>
               </li>
               <li>
                 <Link to={"/contact"}>Contact Us</Link>
               </li>
+              <li>
+                {isLoggedIn ? (
+                  <>
+                    <Link to="/" onClick={handleLogout}>
+                      Logout
+                    </Link>
+                  </>
+                ) : (
+                  <Link to="/signin">Sign in</Link>
+                )}
+              </li>
+              {/* <li>
+                <Link to={"/signin"}>Sign in</Link>
+              </li> */}
+              {/* <li>
+                <Link to="/" onClick={handleLogout}>
+                  Sign out
+                </Link>
+              </li> */}
             </ul>
 
             <a

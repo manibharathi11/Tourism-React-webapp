@@ -8,12 +8,16 @@ import ServicePage from "./pages/ServicePage";
 import HomePage from "./pages/HomePage";
 import ContactPage from "./pages/ContactPage";
 import Elements from "./pages/Elements";
+import SignIn from "./pages/SignIn";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPg />} />
           <Route path="/service" element={<ServicePage />} />
