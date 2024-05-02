@@ -7,14 +7,16 @@ import "../css/signin.css";
 import { OAuthProvider } from "firebase/auth";
 import "firebase/compat/database";
 
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCVcAGtmpL4GSWkD6Ex_7_kmwNZtAkK4yI",
-  authDomain: "travel-agency-3d375.firebaseapp.com",
-  projectId: "travel-agency-3d375",
-  storageBucket: "travel-agency-3d375.appspot.com",
-  messagingSenderId: "68261411161",
-  appId: "1:68261411161:web:259d3a0821310a891b3448",
-  measurementId: "G-8LMS0TH337",
+  apiKey: "AIzaSyBwCBvpBNEM0jkmHyXGMQAVbcIMoEzoaIs",
+  authDomain: "travelagency-fd43c.firebaseapp.com",
+  databaseURL: "https://travelagency-fd43c-default-rtdb.firebaseio.com",
+  projectId: "travelagency-fd43c",
+  storageBucket: "travelagency-fd43c.appspot.com",
+  messagingSenderId: "623552649388",
+  appId: "1:623552649388:web:f6f97e6f27915eb9eae709",
+  measurementId: "G-CEY38LTBFJ",
 };
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);

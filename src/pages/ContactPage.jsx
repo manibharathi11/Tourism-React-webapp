@@ -11,12 +11,14 @@ import ContactUs from "../components/ContactUs";
 import ContactForm from "../components/ContactForm";
 import TestimonialsSection from "../components/TestimonialsSection";
 import Footer from "../components/Footer";
+
 function ContactPage() {
   return (
     <div>
       <Navbar />
       <ContactUs />
       <ContactForm />
+
       <TestimonialsSection />
       <Footer />
     </div>

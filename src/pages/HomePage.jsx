@@ -1,6 +1,5 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import "../css/bootstrap.min.css";
 import "../fonts/flaticon/font/flaticon.css";
 import "../fonts/icomoon/style.css";
 import "../css/bootstrap.min.css";
@@ -20,14 +19,16 @@ import TestimonialsSection from "../components/TestimonialsSection";
 import SpecialOffer from "../components/SpecialOffer";
 import PopularDestination from "../components/PopularDestination";
 import StatsInfo from "../components/StatsInfo";
+import MoreServices from "../components/MoreServices";
 
 function HomePage() {
   return (
     <>
       <Navbar />
       <TypedEffect />
-      <OurServices />
-      <ServicesHome />
+      {/* <OurServices /> */}
+      {/* <ServicesHome /> */}
+      <MoreServices />
       <StatsInfo />
       <PopularDestination />
       <TestimonialsSection />

@@ -47,9 +47,9 @@ function Navbar() {
       <nav className="site-nav">
         <div className="container">
           <div className="site-navigation">
-            <a href="index.html" className="logo m-0">
+            <Link to={"/"} className="logo m-0">
               Tour <span className="text-primary">.</span>
-            </a>
+            </Link>
 
             <ul className="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
               <li>
@@ -103,14 +103,9 @@ function Navbar() {
                   <Link to="/signin">Sign in</Link>
                 )}
               </li>
-              {/* <li>
-                <Link to={"/signin"}>Sign in</Link>
-              </li> */}
-              {/* <li>
-                <Link to="/" onClick={handleLogout}>
-                  Sign out
-                </Link>
-              </li> */}
+              <li>
+                <Link to={"/profile"}>Profile</Link>
+              </li>
             </ul>
 
             <a
