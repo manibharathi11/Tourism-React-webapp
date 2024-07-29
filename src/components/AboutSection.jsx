@@ -1,7 +1,8 @@
 import React from "react";
-import "../css/style.css";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+//import "../css/style.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+
 function AboutSection() {
   return (
     <>
@@ -9,7 +10,15 @@ function AboutSection() {
         <div className="container">
           <div className="row">
             <div className="col-lg-7">
-              <Carousel>
+              <Carousel
+                autoPlay={true}
+                interval={1500} // Change the interval as per your preference
+                infiniteLoop={true}
+                showArrows={true} // Display arrows for navigation
+                showStatus={false}
+                showIndicators={false}
+                showThumbs={false}
+              >
                 <img
                   src="/images/slider-1.jpg"
                   alt="Free HTML Template by Untree.co"

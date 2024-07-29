@@ -1,82 +1,97 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import firebase from "firebase/compat/app";
 
 function MoreServices() {
+  const [moreServiceContent, setMoreServiceContent] = useState({
+    title: "",
+    description: "",
+    services: {},
+  });
+
+  useEffect(() => {
+    const fetchMoreServiceContent = async () => {
+      try {
+        const snapshot = await firebase
+          .database()
+          .ref("Our_service")
+          .once("value");
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const { title, description, ...services } = data;
+
+          setMoreServiceContent({
+            title: title || "",
+            description: description || "",
+            services: services || {},
+          });
+        } else {
+          console.error("More service section content not found in database");
+        }
+      } catch (error) {
+        console.error("Error fetching about section content:", error);
+      }
+    };
+
+    fetchMoreServiceContent();
+  }, []);
+
   return (
-    <>
-      <div className="untree_co-section">
-        <div className="container">
-          <div className="row mb-5 justify-content-center">
-            <div className="col-lg-6 text-center">
-              <h2 className="section-title text-center mb-3">More Services</h2>
-              <p>
-                Far far away, behind the word mountains, far from the countries
-                Vokalia and Consonantia, there live the blind texts. Separated
-                they live in Bookmarksgrove right at the coast of the Semantics,
-                a large language ocean.
-              </p>
+    <div className="untree_co-section">
+      <div className="container">
+        <div className="row mb-5 justify-content-center">
+          <div className="col-lg-6 text-center">
+            <h2 className="section-title text-center mb-3">
+              {moreServiceContent.title}
+            </h2>
+            <p className="text-justify">{moreServiceContent.description}</p>
+          </div>
+        </div>
+        <div className="row align-items-stretch">
+          <div className="col-lg-4 order-lg-1">
+            <div className="h-100">
+              <div className="frame h-100">
+                {/* <div
+                  className="feature-img-bg h-100"
+                  style={{
+                    backgroundImage: 'url("images/hero-slider-1.jpg")',
+                  }}
+                /> */}
+              </div>
             </div>
           </div>
           <div className="row align-items-stretch">
-            <div className="col-lg-4 order-lg-1">
-              <div className="h-100">
-                <div className="frame h-100">
-                  <div
-                    className="feature-img-bg h-100"
-                    style={{
-                      backgroundImage: 'url("images/hero-slider-1.jpg")',
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-            <div className="col-6 col-sm-6 col-lg-4 feature-1-wrap d-md-flex flex-md-column order-lg-1">
-              <div className="feature-1 d-md-flex">
-                <div className="align-self-center">
-                  <span className="flaticon-house display-4 text-primary" />
-                  <h3>Beautiful Condo</h3>
-                  <p className="mb-0">
-                    Even the all-powerful Pointing has no control about the
-                    blind texts.
-                  </p>
-                </div>
-              </div>
-              <div className="feature-1 ">
-                <div className="align-self-center">
-                  <span className="flaticon-restaurant display-4 text-primary" />
-                  <h3>Restaurants &amp; Cafe</h3>
-                  <p className="mb-0">
-                    Even the all-powerful Pointing has no control about the
-                    blind texts.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-6 col-sm-6 col-lg-4 feature-1-wrap d-md-flex flex-md-column order-lg-3">
-              <div className="feature-1 d-md-flex">
-                <div className="align-self-center">
-                  <span className="flaticon-mail display-4 text-primary" />
-                  <h3>Easy to Connect</h3>
-                  <p className="mb-0">
-                    Even the all-powerful Pointing has no control about the
-                    blind texts.
-                  </p>
-                </div>
-              </div>
-              <div className="feature-1 d-md-flex">
-                <div className="align-self-center">
-                  <span className="flaticon-phone-call display-4 text-primary" />
-                  <h3>24/7 Support</h3>
-                  <p className="mb-0">
-                    Even the all-powerful Pointing has no control about the
-                    blind texts.
-                  </p>
-                </div>
-              </div>
-            </div>
+            {Object.keys(moreServiceContent.services)
+              .slice(0, 3) // Select only the first 3 services
+              .map((serviceId) => {
+                const service = moreServiceContent.services[serviceId];
+                return (
+                  <div key={serviceId} className="col-lg-4">
+                    <div className="feature-1">
+                      <div className="align-self-center">
+                        {/* Icon */}
+                        {service.Service_id === 1 && (
+                          <span className="flaticon-house display-4 text-primary" />
+                        )}
+                        {service.Service_id === 2 && (
+                          <span className="flaticon-mail display-4 text-primary" />
+                        )}
+                        {service.Service_id === 3 && (
+                          <span className="flaticon-restaurant display-4 text-primary" />
+                        )}
+                        {/* Title */}
+                        <h3>{service.Service_title}</h3>
+                        <p className="text-justify">
+                          {service.Service_description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -141,55 +141,6 @@ const SignIn = () => {
       });
   }
 
-  /*
-    function signInWithTwitter() {
-        console.log("hi");
-        var provider = new firebase.auth.TwitterAuthProvider();
-        firebase.auth().useDeviceLanguage();
-        
-        firebase.auth().signInWithPopup(provider)
-            .then((result) => {
-            /** @type {firebase.auth.OAuthCredential} 
-            var credential = result.credential;
-
-            var token = credential.accessToken;
-            var secret = credential.secret;
-
-            // The signed-in user info.
-            var user = result.user;
-            console.log(user);
-            document.getElementById('message').innerHTML = `Signed in with Twitter as ${user.displayName}`;
-            window.location.href = 'http://127.0.0.1:5500/NiceAdmin/index.html';
-        
-            }).catch((error) => {
-            document.getElementById('message').innerHTML = `Error: ${error.message}`;
-            });
-    }
-    
-
-
-    // sign in with git hub
-    function signInWithGithub() {
-        var provider = new firebase.auth.GithubAuthProvider();
-        provider.addScope('repo');
-        provider.setCustomParameters({
-            'allow_signup': 'false'
-        });
-
-        firebase.auth().signInWithPopup(provider)
-            .then((result) => {
-                var credential = result.credential;
-                var token = credential.accessToken;
-                var user = result.user;
-                document.getElementById('message').innerHTML = `Signed in with Git hub as ${user.displayName}`;
-                window.location.href = 'http://127.0.0.1:5500/NiceAdmin/index.html';
-            }).catch((error) => {
-                document.getElementById('message').innerHTML = `Error: ${error.message}`;
-            })
-
-
-    }*/
-
   function signInWithPhone(emailOrPhone, password) {
     var appVerifier = new firebase.auth.RecaptchaVerifier(
       "recaptcha-container"

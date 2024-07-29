@@ -3,7 +3,7 @@ import React from "react";
 function ElementsInfo() {
   return (
     <div>
-      <div className="hero hero-inner">
+      <div className="hero hero-inner " style={{ backgroundColor: "#6998ab" }}>
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6 mx-auto text-center">

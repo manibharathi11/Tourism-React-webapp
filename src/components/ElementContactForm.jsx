@@ -110,67 +110,6 @@ function ElementContactForm() {
               </a>
             </li>
           </ul>
-        </div>{" "}
-        {/* END .custom-block */}
-        <div
-          className="custom-block" /* data-aos="fade-up" data-aos-delay={100}*/
-        >
-          <div className="text-center">
-            <h2 className="section-title text-center">Slider</h2>
-          </div>
-          <div className="owl-single owl-carousel no-nav">
-            <div className="testimonial mx-auto">
-              <figure className="img-wrap">
-                <img
-                  src="images/person_2.jpg"
-                  alt="Image"
-                  className="img-fluid"
-                />
-              </figure>
-              <h3 className="name">Adam Aderson</h3>
-              <blockquote>
-                <p>
-                  “There live the blind texts. Separated they live in
-                  Bookmarksgrove right at the coast of the Semantics, a large
-                  language ocean.”
-                </p>
-              </blockquote>
-            </div>
-            <div className="testimonial mx-auto">
-              <figure className="img-wrap">
-                <img
-                  src="images/person_3.jpg"
-                  alt="Image"
-                  className="img-fluid"
-                />
-              </figure>
-              <h3 className="name">Lukas Devlin</h3>
-              <blockquote>
-                <p>
-                  “There live the blind texts. Separated they live in
-                  Bookmarksgrove right at the coast of the Semantics, a large
-                  language ocean.”
-                </p>
-              </blockquote>
-            </div>
-            <div className="testimonial mx-auto">
-              <figure className="img-wrap">
-                <img
-                  src="images/person_4.jpg"
-                  alt="Image"
-                  className="img-fluid"
-                />
-              </figure>
-              <h3 className="name">Kayla Bryant</h3>
-              <blockquote>
-                <p>
-                  “There live the blind texts. Separated they live in
-                  Bookmarksgrove right at the coast of the Semantics, a large
-                  language ocean.”
-                </p>
-              </blockquote>
-            </div>
-          </div>
         </div>
       </div>
     </>

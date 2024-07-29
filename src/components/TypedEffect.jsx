@@ -1,29 +1,67 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Typewriter from "react-typewriter-effect";
+import firebase from "firebase/compat/app";
+import "firebase/compat/database";
+import { Carousel } from "react-bootstrap";
+
 function TypedEffect() {
-  // useEffect = () => {
-  //   var typed = new Typed(".typed-words", {
-  //     strings: [
-  //       "San Francisco.",
-  //       " Paris.",
-  //       " New Zealand.",
-  //       " Maui.",
-  //       " London.",
-  //     ],
-  //     typeSpeed: 80,
-  //     backSpeed: 80,
-  //     backDelay: 4000,
-  //     startDelay: 1000,
-  //     loop: true,
-  //     showCursor: true,
-  //     preStringTyped: (arrayPos, self) => {
-  //       arrayPos++;
-  //       console.log(arrayPos);
-  //       $(".slides img").removeClass("active");
-  //       $('.slides img[data-id="' + arrayPos + '"]').addClass("active");
-  //     },
-  //   });
-  // };
+  const [formData, setFormData] = useState({
+    country: "",
+    tourDate: "",
+    numberOfPassenger: "",
+  });
+
+  const [typedContent, setTypedContent] = useState({
+    content: "",
+    countries: "",
+  });
+
+  const [successMessage, setSuccessMessage] = useState("");
+
+  useEffect(() => {
+    const fetchTypedContent = async () => {
+      try {
+        const snapshot = await firebase
+          .database()
+          .ref("Typed effect")
+          .once("value");
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          setTypedContent(data);
+        } else {
+          console.error("Typed effect data not found in database");
+        }
+      } catch (error) {
+        console.error("Error fetching typed effect data:", error);
+      }
+    };
+
+    fetchTypedContent();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const database = firebase.database();
+      const ref = database.ref("Booked_TOUR");
+      await ref.push(formData);
+      console.log("Data submitted successfully!");
+      setSuccessMessage("Form submitted successfully!");
+      setFormData({
+        country: "",
+        tourDate: "",
+        numberOfPassenger: "",
+      });
+    } catch (error) {
+      console.error("Error submitting data:", error);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   return (
     <>
       <div className="hero">
@@ -32,46 +70,49 @@ function TypedEffect() {
             <div className="col-lg-7">
               <div className="intro-wrap">
                 <h1>
-                  Let's Enjoy Your Trip In
-                  <Typewriter text="Paris" delay={100} />
+                  {typedContent.content && <span>{typedContent.content}</span>}
+                  {typedContent.countries && (
+                    <Typewriter text={typedContent.countries} />
+                  )}
                 </h1>
-                {/* <h1 class="mb-5">
-                  <span class="d-block">Let's Enjoy Your</span> Trip In
-                  <span class="typed-words"></span>
-                </h1> */}
+
                 <div className="row">
                   <div className="col-12">
-                    <form className="form">
+                    <form className="form" onSubmit={handleSubmit}>
                       <div className="row mb-2">
                         <div className="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-4">
                           <select
-                            name=""
-                            id=""
+                            name="country"
                             className="form-control custom-select"
+                            value={formData.country}
+                            onChange={handleChange}
                           >
                             <option value="">Destination</option>
-                            <option value="">Peru</option>
-                            <option value="">Japan</option>
-                            <option value="">Thailand</option>
-                            <option value="">Brazil</option>
-                            <option value="">United States</option>
-                            <option value="">Israel</option>
-                            <option value="">China</option>
-                            <option value="">Russia</option>
+                            <option value="United States">United States</option>
+                            <option value="Malaysia">Malaysia</option>
+                            <option value="Switzerland">Switzerland</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Paris">Paris</option>
                           </select>
                         </div>
                         <div className="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-5">
                           <input
-                            type="text"
+                            type="date"
                             className="form-control"
-                            name="daterange"
+                            id="tourDate"
+                            name="tourDate"
+                            value={formData.tourDate}
+                            onChange={handleChange}
                           />
                         </div>
                         <div className="col-sm-12 col-md-6 mb-3 mb-lg-0 col-lg-3">
                           <input
                             type="text"
                             className="form-control"
-                            placeholder="# of People"
+                            name="numberOfPassenger"
+                            placeholder="no of People"
+                            value={formData.numberOfPassenger}
+                            onChange={handleChange}
                           />
                         </div>
                       </div>
@@ -84,11 +125,11 @@ function TypedEffect() {
                           />
                         </div>
                         <div className="col-lg-8">
-                          <label className="control control--checkbox mt-3">
-                            <span className="caption">Save this search</span>
-                            <input type="checkbox" defaultChecked="checked" />
-                            <div className="control__indicator" />
-                          </label>
+                          {successMessage && (
+                            <div className="alert alert-success mt-2">
+                              {successMessage}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </form>
@@ -97,37 +138,59 @@ function TypedEffect() {
               </div>
             </div>
             <div className="col-lg-5">
-              <div className="slides">
-                <img
-                  src="images/hero-slider-1.jpg"
-                  alt="Image"
-                  className="img-fluid active"
-                />
-                <img
-                  src="images/hero-slider-2.jpg"
-                  alt="Image"
-                  className="img-fluid"
-                />
-                <img
-                  src="images/hero-slider-3.jpg"
-                  alt="Image"
-                  className="img-fluid"
-                />
-                <img
-                  src="images/hero-slider-4.jpg"
-                  alt="Image"
-                  className="img-fluid"
-                />
-                <img
-                  src="images/hero-slider-5.jpg"
-                  alt="Image"
-                  className="img-fluid"
-                />
-              </div>
+              <Carousel
+                controls={false}
+                indicators={false}
+                interval={4000}
+                fade
+              >
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100 img-fluid capsule-image"
+                    src="images/hero-slider-1.jpg"
+                    alt="First slide"
+                  />
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100 img-fluid capsule-image"
+                    src="images/hero-slider-2.jpg"
+                    alt="Second slide"
+                  />
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100 img-fluid capsule-image"
+                    src="images/hero-slider-3.jpg"
+                    alt="Third slide"
+                  />
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100 img-fluid capsule-image"
+                    src="images/hero-slider-4.jpg"
+                    alt="Fourth slide"
+                  />
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100 img-fluid capsule-image"
+                    src="images/hero-slider-5.jpg"
+                    alt="Fifth slide"
+                  />
+                </Carousel.Item>
+              </Carousel>
             </div>
           </div>
         </div>
       </div>
+      <style jsx>{`
+        .capsule-image {
+          border-radius: 40%;
+          max-width: 90%;
+          height: auto;
+        }
+      `}</style>
     </>
   );
 }

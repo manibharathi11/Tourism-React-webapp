@@ -1,6 +1,3 @@
-import "bootstrap/dist/css/bootstrap.css";
-
-import "aos/dist/aos.css";
 import AboutPg from "./pages/AboutPg";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -11,6 +8,10 @@ import Elements from "./pages/Elements";
 import SignIn from "./pages/SignIn";
 import Signup from "./pages/Signup";
 import ProfilePage from "./pages/ProfilePage";
+import AdminPage from "./pages/AdminPage";
+import SeoPage from "./pages/SeoPage";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/element" element={<Elements />} />
           <Route path="/profile" element={<ProfilePage />} />
+
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/seo" element={<SeoPage />} />
         </Routes>
       </Router>
     </>

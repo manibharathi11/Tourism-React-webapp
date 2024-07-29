@@ -82,6 +82,32 @@ function ContactForm() {
       setErrorMessage("Failed to send message. Please try again.");
     }
   };
+  const [contactDetails, setContactDetails] = useState({
+    mail: "",
+    ph: "",
+    street: "",
+  });
+
+  useEffect(() => {
+    const fetchContactDetails = async () => {
+      try {
+        const snapshot = await firebase
+          .database()
+          .ref("Contact_details")
+          .once("value");
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          setContactDetails(data);
+        } else {
+          console.error("Contact details not found in database");
+        }
+      } catch (error) {
+        console.error("Error fetching contact details:", error);
+      }
+    };
+
+    fetchContactDetails();
+  }, []);
 
   return (
     <>
@@ -165,17 +191,15 @@ function ContactForm() {
             <div className="col-lg-5 ml-auto">
               <div className="quick-contact-item d-flex align-items-center mb-4">
                 <span className="flaticon-house" />
-                <address className="text">
-                  155 Market St #101, Paterson, NJ 07505, United States
-                </address>
+                <address className="text">{contactDetails.street}</address>
               </div>
               <div className="quick-contact-item d-flex align-items-center mb-4">
                 <span className="flaticon-phone-call" />
-                <address className="text">+1 202 2020 200</address>
+                <address className="text">{contactDetails.ph}</address>
               </div>
               <div className="quick-contact-item d-flex align-items-center mb-4">
                 <span className="flaticon-mail" />
-                <address className="text">@info@mydomain.com</address>
+                <address className="text">{contactDetails.mail}</address>
               </div>
             </div>
           </div>

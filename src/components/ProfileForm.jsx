@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import firebase from "firebase/compat/app";
-import "../css/bootstrap.min.css";
-import "../css/style.css";
 import "firebase/compat/database";
 import "firebase/compat/auth";
-import { useState, useEffect } from "react";
-function ProfileForm() {
-  //profile
+import "../css/bootstrap.min.css";
+import "../css/style.css";
 
+function ProfileForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -23,7 +21,6 @@ function ProfileForm() {
       const userId = currentUser.uid;
       const userRef = firebase.database().ref("users/" + userId);
 
-      // Fetch user data from the Realtime Database
       userRef.once(
         "value",
         (snapshot) => {
@@ -49,8 +46,8 @@ function ProfileForm() {
       setMessage("User not authenticated");
     }
   }, []);
+
   useEffect(() => {
-    // Store form data in localStorage
     localStorage.setItem(
       "profileFormData",
       JSON.stringify({
@@ -74,7 +71,7 @@ function ProfileForm() {
       .update({
         firstName,
         lastName,
-        email: email,
+        email,
         age,
         phoneNumber,
         gender,
@@ -88,21 +85,23 @@ function ProfileForm() {
         setMessage("Error updating profile");
       });
   };
+
   return (
-    <>
-      <section className="ftco-section">
-        <div className="container">
-          <div className="row justify-content-center mb-5 pb-5">
-            <div className="col-md-7 text-center heading-section ftco-animate">
-              <h2 className="mb-2">My Profile</h2>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-md-7">
-              <div className="form_container">
+    <section className="ftco-section">
+      <div className="container">
+        <div className="row justify-content-center mb-5 pb-5">
+          <div className="col-md-7 text-center heading-section ftco-animate"></div>
+        </div>
+        <div className="row justify-content-center">
+          <div className="col-md-7">
+            <div className="card">
+              <h2 className=" p-4">My Profile</h2>
+              <div className="card-body">
                 <form onSubmit={handleUpdateProfile}>
-                  <div className="form-group1">
-                    <label htmlFor="firstName">First Name:</label>
+                  <div className="mb-3">
+                    <label htmlFor="firstName" className="form-label">
+                      First Name
+                    </label>
                     <input
                       type="text"
                       className="form-control"
@@ -180,7 +179,7 @@ function ProfileForm() {
                       </label>
                     </div>
                   </div>
-                  <div className="form-group1">
+                  <div className="form-group1 mb-5">
                     <label htmlFor="location">Location:</label>
                     <input
                       type="text"
@@ -190,22 +189,19 @@ function ProfileForm() {
                       onChange={(e) => setLocation(e.target.value)}
                     />
                   </div>
-                  <button type="submit" className="btn btn-primary">
-                    Update Profile
-                  </button>
+                  <div>
+                    <button type="submit" className="btn btn-primary">
+                      Update Profile
+                    </button>
+                  </div>
+                  <p>{message}</p>
                 </form>
-                <p>{message}</p>
-              </div>
-            </div>
-            <div className="col-md-5">
-              <div className="img-box">
-                {/* You can place an image here if needed */}
               </div>
             </div>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 

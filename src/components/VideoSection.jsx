@@ -26,19 +26,24 @@ function VideoSection() {
             </div>
             <div className="col-lg-5">
               <h2 className="section-title text-left mb-4">
-                Take a look at Tour Video
+                Discover Paris: The Ultimate Tour Video Experience
               </h2>
-              <p>
-                Far far away, behind the word mountains, far from the countries
-                Vokalia and Consonantia, there live the blind texts. Separated
-                they live in Bookmarksgrove right at the coast of the Semantics,
-                a large language ocean.
+              <p className="text-justify">
+                Join us on this unforgettable visual tour of Paris, a city that
+                captivates the hearts of millions. Whether you’re planning your
+                first visit or reliving cherished memories, our video brings the
+                magic of Paris to life, offering a glimpse into its timeless
+                beauty and endless charm. Bon voyage!
               </p>
-              <p className="mb-4">
-                A small river named Duden flows by their place and supplies it
-                with the necessary regelialia. It is a paradisematic country, in
-                which roasted parts of sentences fly into your mouth.
+              <p className="mb-4 text-justify">
+                No visit to Paris is complete without experiencing the Eiffel
+                Tower. Standing tall as the symbol of the city, this
+                architectural marvel offers breathtaking views of the Parisian
+                skyline.
               </p>
+              <h5 className="section-title text-left mb-4">
+                Some of the Key Services provided by us:
+              </h5>
               <ul className="list-unstyled two-col clearfix">
                 <li>Outdoor recreation activities</li>
                 <li>Airlines</li>

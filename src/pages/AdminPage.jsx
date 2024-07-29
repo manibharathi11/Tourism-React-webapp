@@ -1,23 +1,12 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import ElementsInfo from "../components/ElementsInfo";
+import AdminDashBoard from "../components/AdminDashBoard";
+
 import Footer from "../components/Footer";
-import CtaSection from "../components/CtaSection";
-import TeamSection from "../components/TeamSection";
-import PhotosSection from "../components/PhotosSection";
-import Accordion from "../components/Accordion";
-import "../css/bootstrap.min.css";
-import "../fonts/flaticon/font/flaticon.css";
-import "../fonts/icomoon/style.css";
-import "../css/bootstrap.min.css";
-import "../css/style.css";
-import "../css/daterangepicker.css";
-import "../css/jquery.fancybox.min.css";
+import Navbar from "../components/Navbar";
 
-import ElementContactForm from "../components/ElementContactForm";
-import ElementGallery from "../components/ElementGallery";
+import AdminSec from "../components/AdminSec";
 
-function Elements() {
+function AdminPage() {
   // useEffect(() => {
   //   const metaDataRef = firebase.database().ref("metadata");
 
@@ -74,18 +63,14 @@ function Elements() {
   //   }
   // }, [metaTitle, keywords, primaryKeywords, secondaryKeywords]);
   return (
-    <div>
+    <>
       <Navbar />
-      <ElementsInfo />
-      <PhotosSection />
-      <Accordion />
-      <ElementGallery />
-      <ElementContactForm />
-      <TeamSection />
-      <CtaSection />
+      <AdminSec />
+      {/* <OurServices /> */}
+      <AdminDashBoard />
       <Footer />
-    </div>
+    </>
   );
 }
 
-export default Elements;
+export default AdminPage;

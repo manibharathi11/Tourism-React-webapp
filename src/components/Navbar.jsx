@@ -1,121 +1,129 @@
-import React, { useEffect } from "react";
-import "../css/style.css";
-import "bootstrap/dist/css/bootstrap.css";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import firebase from "firebase/compat/app";
-import { useState } from "react";
+import "firebase/compat/auth";
+import "../css/style.css";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-icons/font/bootstrap-icons.css"; // Ensure Bootstrap Icons CSS is loaded
+import "bootstrap/dist/js/bootstrap.bundle.min"; // Ensure Bootstrap JavaScript is loaded
+
 function Navbar() {
-  //isloggedin
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   useEffect(() => {
-    // Check if user is already logged in
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
+      setIsLoggedIn(!!user);
     });
     return unsubscribe;
   }, []);
 
-  //logout
   const handleLogout = () => {
     firebase
       .auth()
       .signOut()
       .then(() => {
         setIsLoggedIn(false);
-        // Redirect to home page or do any necessary clean up
         window.location.href = "/";
       })
       .catch((error) => {
         console.error("Sign out error:", error);
       });
   };
+
   return (
     <>
-      <div className="site-mobile-menu site-navbar-target">
-        <div className="site-mobile-menu-header">
-          <div className="site-mobile-menu-close">
-            <span className="icofont-close js-menu-toggle"></span>
-          </div>
-        </div>
-        <div className="site-mobile-menu-body"></div>
-      </div>
-
-      <nav className="site-nav">
+      <nav className="navbar navbar-expand-lg fixed-top">
         <div className="container">
-          <div className="site-navigation">
-            <Link to={"/"} className="logo m-0">
-              Tour <span className="text-primary">.</span>
-            </Link>
+          <Link to="/" className="navbar-brand font-weight-bold">
+            Tour <span className="text-primary ">.</span>
+          </Link>
 
-            <ul className="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right">
-              <li>
-                <Link to={"/"}>Home</Link>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i className="bi bi-list text-white"></i>
+          </button>
+
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item">
+                <Link to="/" className="nav-link">
+                  Home
+                </Link>
               </li>
-              <li className="has-children">
-                <a href="#">Dropdown</a>
-                <ul className="dropdown">
-                  <li>
-                    <Link to={"/element"}>Elements</Link>
-                  </li>
-                  <li>
-                    <a href="#">Menu One</a>
-                  </li>
-                  <li className="has-children">
-                    <a href="#">Menu Two</a>
-                    <ul className="dropdown">
+              <li className="nav-item">
+                <Link to="/service" className="nav-link">
+                  Services
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/about" className="nav-link">
+                  About
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/contact" className="nav-link">
+                  Contact Us
+                </Link>
+              </li>
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <i
+                    className="bi bi-person-fill"
+                    style={{ color: "white" }}
+                  ></i>
+                </a>
+                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  {isLoggedIn && (
+                    <>
                       <li>
-                        <a href="#">Sub Menu One</a>
+                        <Link to="/admin" className="dropdown-item">
+                          Admin
+                        </Link>
                       </li>
                       <li>
-                        <a href="#">Sub Menu Two</a>
+                        <Link to="/seo" className="dropdown-item">
+                          SEO
+                        </Link>
                       </li>
-                      <li>
-                        <a href="#">Sub Menu Three</a>
-                      </li>
-                    </ul>
+                    </>
+                  )}
+                  <li>
+                    <Link to="/profile" className="dropdown-item">
+                      Profile
+                    </Link>
                   </li>
                   <li>
-                    <a href="#">Menu Three</a>
+                    {isLoggedIn ? (
+                      <Link
+                        to="/"
+                        onClick={handleLogout}
+                        className="dropdown-item"
+                      >
+                        Logout
+                      </Link>
+                    ) : (
+                      <Link to="/signin" className="dropdown-item">
+                        Sign in
+                      </Link>
+                    )}
                   </li>
                 </ul>
               </li>
-              <li>
-                <Link to={"/service"}>Services</Link>
-              </li>
-              <li>
-                <Link to={"/about"}>About</Link>
-              </li>
-              <li>
-                <Link to={"/contact"}>Contact Us</Link>
-              </li>
-              <li>
-                {isLoggedIn ? (
-                  <>
-                    <Link to="/" onClick={handleLogout}>
-                      Logout
-                    </Link>
-                  </>
-                ) : (
-                  <Link to="/signin">Sign in</Link>
-                )}
-              </li>
-              <li>
-                <Link to={"/profile"}>Profile</Link>
-              </li>
             </ul>
-
-            <a
-              href="#"
-              className="burger ml-auto float-right site-menu-toggle js-menu-toggle d-inline-block d-lg-none light"
-              data-toggle="collapse"
-              data-target="#main-navbar"
-            >
-              <span></span>
-            </a>
           </div>
         </div>
       </nav>
